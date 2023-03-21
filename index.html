@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.enemy{
+			margin-top: 100px;
+			text-align:center;
+			height: 250px;
+		}
+		.player_img{
+			width:200px;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+			background-size: 100% 100%;
+			position: relative;
+			transition: 1s;
+
+		}
+		.enemy_img{
+			width:200px;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+			background-size: 100% 100%;
+			position: relative;
+			transition: 1s;
+
+		}
+		.player{
+			text-align: center;
+			height: 250px;
+			margin-top: 150px;
+
+		}
+		.player_property{
+			position: absolute;
+			top:80%;
+
+
+		}
+		.enemy_name{
+			color: white; font-family: Arial;
+		}
+		.player_name{
+			color: white; font-family: Arial
+		}
+	</style>
+</head>
+<body style="background-image: url(images/bg.jpg); background-size: 100% ">
+
+	<div class="enemy">
+		<h1 class="enemy_name"></h1>
+
+		<div class="enemy_img">
+			<h2 class="enemy_hp player_property" style="left: 10%;">0</h2>
+			<h2 class="enemy_damage player_property" style="left: 82%;">0</h2>
+		</div>	
+
+	</div>
+
+	<div class="player">
+		<h1 class="player_name"></h1>
+		
+		<div class="player_img">
+			<h2 class="player_hp player_property" style="left: 10%;">0</h2>
+			<h2 class="player_damage player_property" style="left: 82%;">0</h2>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+
+		let enemy_img = document.querySelector(".enemy_img")
+		let player_img = document.querySelector(".player_img")
+
+		let enemy_hp = document.querySelector(".enemy_hp")
+		let player_hp = document.querySelector(".player_hp")
+	
+		let enemy_damage = document.querySelector(".enemy_damage")
+		let player_damage = document.querySelector(".player_damage")
+
+		let player_name = document.querySelector(".player_name")
+
+		let enemy_name = document.querySelector(".enemy_name")
+
+		let randomImage = function() {
+			let random = Math.round(Math.random()*8)
+			return random
+		}
+
+		let images = ["url(full-images/1.png)","url(full-images/2.png)","url(full-images/3.png)","url(full-images/4.png)","url(full-images/5.png)","url(full-images/6.png)","url(full-images/7.png)","url(full-images/8.png)", "url(full-images/9.png)"];
+
+		let player = {
+			hp: Math.round(Math.random()*5+5),
+			dmg: Math.round(Math.random()*8+2),
+			img: images[randomImage()],
+			name: "Player"
+		}
+
+		let enemy = {
+			hp: Math.round(Math.random()*5+5),
+			dmg: Math.round(Math.random()*8+2),
+			img: images[randomImage()],
+			name: "Enemy"
+		}
+
+		player_img.style.backgroundImage = player.img
+		enemy_img.style.backgroundImage = enemy.img
+
+		player_hp.innerHTML = player.hp
+		enemy_hp.innerHTML = enemy.hp
+
+		player_damage.innerHTML = player.dmg
+		enemy_damage.innerHTML = enemy.dmg
+
+		player_name.innerHTML = player.name
+		enemy_name.innerHTML = enemy.name
+
+		let attack = function(){
+			player.hp = player.hp - enemy.dmg;
+			player_hp.innerHTML = player.hp;
+			enemy.hp = enemy.hp - player.dmg;
+			enemy_hp.innerHTML = enemy.hp;
+
+			if(player.hp<enemy.hp){
+				enemy_img.style.display = "none"
+				enemy_name.innerHTML = "Ты выиграл"
+			}
+
+			if(enemy.hp<player.hp){
+				player_img.style.display = "none"
+				player_name.innerHTML = "Игрок проиграл"
+			}
+		}
+
+	setTimeout(attack, 4000)
+	</script>
+</body>
+</html>
